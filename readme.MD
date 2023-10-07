@@ -1,16 +1,77 @@
-## Attributions
-This application is an extension of an application developed by the University of London. Some of the work is not my own. [Please see here for more details](#more-details-on-attribution)
+# Description of the JUCE DJ Application
 
-## Features
-[See my tutorial of the application on youtube](https://www.youtube.com/watch?v=iOKKWV8OHlw)
-- Directly load a song into each deck or import a library to load from
-- Change volume, speed, and position
-- Set the reverb attributes using the coordinate plot for each player
-  - (Top) x-axis: Damping, y-axis: Room Size
-  - (Bottom) x-axis: Dry level, y-axis: Wet Level
-- Displays the file name and a waveform of the track
+![Screen shot](/images/1.jpg)
 
-![A view of the application in action](/screenshot.jpg)
+The developed DJ application, crafted using the JUCE library, integrates multiple classes and functionalities to create a comprehensive and intuitive environment for mixing and playing tracks.
 
-#### More Details on Attribution
-The University of London made the MainComponent, DeckGUI, DJAudioPlayer, and WaveformDisplay files, all of which I have modified. The nature of these changes mostly affect the GUI or enabled the implementation of my own code. These changes include but are not limited to changing the layout of components, adding labels to sliders, adding the song name to the waveform, adding a reverb audio source, and defining event listener callbacks. The University also started a rough outline of the Playlist Component files which I finished and ultimately wrote the majority of. The CoordinatePlot and Track files are solely my work.
+## Application Requirements:
+
+### R1A: Can Load Audio Files into Audio Players
+
+- **PlaylistComponent.cpp**: Central to managing the library of tracks. Functionalities such as `importToLibrary` load new audio files and display them in a playlist. `Track.cpp` defines the Track objects.
+- **DeckGUI.cpp & DJAudioPlayer.cpp**: Manage individual audio player components. Data from the Track object is conveyed to the player component.
+
+### R1B: Can Play Two or More Tracks
+
+- **DJAudioPlayer.cpp**: Handles audio playback. Features two (or more) instances of the DJAudioPlayer, each capable of playing a track independently.
+
+### R1C: Can Mix the Tracks by Varying Each of Their Volumes
+
+- **DeckGUI.cpp**: Each DeckGUI component has controls for adjusting the volume of the track loaded.
+
+### R1D: Can Speed Up and Slow Down the Tracks
+
+- **DJAudioPlayer.cpp**: Manages the playback speed of the loaded tracks.
+
+## Additional Components:
+
+- **Main.cpp & MainComponent.cpp**: Serve as the application's entry point.
+- **WaveformDisplay.cpp**: Visualizes the waveform of the loaded tracks.
+- **CustomLookAndFeel.cpp**: Customizes the visual aspects.
+- **CoordinatePlot.cpp**: Used to set reverb.
+- **AudioProcessorClass.cpp**: Processes the audio data.
+- **AlertCallback.cpp**: Manages alert dialogs.
+
+---
+
+# Customizing the User Interface (R2)
+
+Comparing the code you posted, here are the differences and new components:
+
+## R2A: Changes in GUI layout
+
+1. **New Components Added**:
+   - `volLabel`
+   - `speedLabel`
+   - `posLabel`
+   - `reverbPlot1`
+   - `reverbPlot2`
+   - `waveformDisplay`
+2. **Modified Components**:
+
+   - `volSlider`: Configuration modifications.
+   - `speedSlider`: Configuration updates.
+   - `posSlider`: Added configurations.
+
+3. **Visual and Functional Enhancements**:
+   - **LookAndFeel Customization**: Used to customize appearance.
+   - **Reverb Plots**: New tooltips and labels.
+
+### R2B: New Event Listener
+
+1. **New Event Listeners**:
+   - Added to `reverbSlider`, `reverbPlot1`, `reverbPlot2`.
+   - `waveformDisplay.onPositionChanged`: New listener.
+
+---
+
+# Feature Description and Implementation
+
+We enhanced our DJ application, inspired by a counterpart DJ application labeled as R3.
+
+## Technical Aspects:
+
+1. **AudioProcessorClass Module**: Pivotal in this enhancement.
+2. **In-depth Analysis**: Features like Constructor, Destructor, `prepareToPlay`, and more.
+3. **Real-time Processing**: Includes `processAudioBlock` and `processSingleChannel`.
+4. **Backend Infrastructure**: Uses JUCE Framework and `AudioBuffer` and `dsp` Modules.
